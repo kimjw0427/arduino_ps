@@ -41,6 +41,13 @@ int V_signal = 0;
 void setup() {
   Serial.begin(9600);
   Wire.begin();
+  lcd.init();
+
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Door is Closed");
+  lcd.setCursor(0,1);
+  lcd.print("Password Wrong!");
 
   pinMode(3, OUTPUT);
   pinMode(4, OUTPUT);
@@ -123,32 +130,45 @@ void loop() {
     digitalWrite(reg_array[i][1],HIGH);
   }
     
-  delay(10);
+  delay(15);
 
   Serial.print(ps[0]);
   Serial.print(',');
   Serial.print(ps[1]);
   Serial.print(',');
   Serial.println(ps[2]);
-  
+
   if(ps[0]==answer[0]&&ps[1]==answer[1]&&ps[2]==answer[2]){
     if(V_signal = 0){
-      lcd.backlight();
+      //ds_open();
     }
+    ds_open();
     V_signal = 1;
-    lcd.setCursor(0,0);
-    lcd.print("Hello");
-    lcd.setCursor(0,1);
-    lcd.print("Bye");
+    Serial.println("open");
   } else {
     if(V_signal = 1){
-      lcd.backlight();
+      //ds_close();
     }
+    ds_close();
     V_signal = 0;
-    lcd.setCursor(0,0);
-    lcd.print("Hello");
-    lcd.setCursor(0,1);
-    lcd.print("Bye2");
+    Serial.println("close");
   }
+}
 
+void ds_open(){
+  //lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Door is Opened");
+  lcd.setCursor(0,1);
+  lcd.print("Password Correct!");
+}
+
+void ds_close(){
+  //lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("Door is Closed");
+  lcd.setCursor(0,1);
+  lcd.print("Password Wrong! ");
 }
