@@ -111,6 +111,7 @@ void loop() {
         }
         
         bt_array[i] = 1;
+        tone(2,262,200);
      
       }
     }
@@ -139,14 +140,28 @@ void loop() {
   Serial.println(ps[2]);
 
   if(ps[0]==answer[0]&&ps[1]==answer[1]&&ps[2]==answer[2]){
-    if(V_signal = 0){
-      //ds_open();
+    if(V_signal == 0){
+      tone(2,262,100);
+      delay(100);
+      tone(2,294,100);
+      delay(100);
+      tone(2,330,100);
+      delay(100);
+      tone(2,349,100);
+      delay(100);
+      tone(2,392,100);
+      delay(100);
+      tone(2,440,100);
+      delay(100);
+      tone(2,494,100);
+      delay(100);
+      tone(2,523,100); 
     }
     ds_open();
     V_signal = 1;
     Serial.println("open");
   } else {
-    if(V_signal = 1){
+    if(V_signal == 1){
       //ds_close();
     }
     ds_close();
